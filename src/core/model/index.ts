@@ -27,3 +27,5 @@ export {
   Movie,
   MovieDetail,
 } from './movie.model';
+export { ThemeEnum } from './theme.enum';
+export { GlobalState } from './globalState.model';

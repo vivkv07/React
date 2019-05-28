@@ -5,5 +5,5 @@ import { ThemeKey } from '@src/core/themes';
 
 export interface LayoutsListItemData {
   title: string;
-  icon: (style: StyleType, currentTheme: ThemeKey) => React.ReactElement<ImageProps>;
+  icon: (style: StyleType) => React.ReactElement<ImageProps>;
 }

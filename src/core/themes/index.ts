@@ -16,10 +16,4 @@ export const themes: ThemeRegistry = {
   'Eva Dark': dark,
 };
 
-export {
-  ThemeContext,
-  ContextType,
-} from './themeContext';
-
-export { ThemeStore } from './theme.store';
 export { ThemeService } from './theme.service';

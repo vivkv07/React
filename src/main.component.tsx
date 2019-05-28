@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { ImageRequireSource } from 'react-native';
 import { NavigationState } from 'react-navigation';
 import { Font } from 'expo';
@@ -12,16 +13,8 @@ import {
 import { Router } from './core/navigation/routes';
 import { trackScreenTransition } from './core/utils/analytics';
 import { getCurrentStateName } from './core/navigation/routeUtil';
-import {
-  ContextType,
-  ThemeContext,
-  ThemeKey,
-  themes,
-  ThemeStore,
-} from '@src/core/themes';
-
-import { connect, Provider } from 'react-redux';
-import { store } from './store';
+import { themes } from '@src/core/themes';
+import { GlobalState } from '@src/core/model';
 
 const images: ImageRequireSource[] = [
   require('./assets/images/source/image-profile-1.jpg'),
@@ -53,15 +46,7 @@ const assets: Assets = {
   fonts: fonts,
 };
 
-interface State {
-  theme: ThemeKey;
-}
-
-class AppComponent extends React.Component<{}, State> {
-
-  public state: State = {
-    theme: 'Eva Light',
-  };
+class MainComponent extends React.Component<GlobalState> {
 
   private onTransitionTrackError = (error: any): void => {
     console.warn('Analytics error: ', error.message);
@@ -77,38 +62,27 @@ class AppComponent extends React.Component<{}, State> {
     }
   };
 
-  private onSwitchTheme = (theme: ThemeKey) => {
-    ThemeStore.setTheme(theme).then(() => {
-      this.setState({ theme });
-    });
-  };
-
   public render(): React.ReactNode {
-    const contextValue: ContextType = {
-      currentTheme: this.state.theme,
-      toggleTheme: this.onSwitchTheme,
-    };
+    const { theme } = this.props;
 
     return (
-        <ApplicationLoader assets={assets}>
-          <ThemeContext.Provider value={contextValue}>
-            <ApplicationProvider
-              mapping={mapping}
-              theme={themes[this.props.theme]}>
-              <DynamicStatusBar currentTheme={this.state.theme}/>
-              <Router onNavigationStateChange={this.onNavigationStateChange}/>
-            </ApplicationProvider>
-          </ThemeContext.Provider>
-        </ApplicationLoader>
+      <ApplicationLoader assets={assets}>
+        <ApplicationProvider
+          mapping={mapping}
+          theme={themes[theme]}>
+          <DynamicStatusBar currentTheme={theme}/>
+          <Router onNavigationStateChange={this.onNavigationStateChange}/>
+        </ApplicationProvider>
+      </ApplicationLoader>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState) => ({
   theme: state.theme,
 });
 
-export const Test = connect(mapStateToProps, null)(AppComponent);
+export const Main = connect(mapStateToProps, null)(MainComponent);
 
 
 

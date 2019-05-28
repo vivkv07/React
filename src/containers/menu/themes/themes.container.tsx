@@ -1,15 +1,15 @@
 import React from 'react';
 import { Themes } from './themes.component';
-import {
-  ContextType,
-  ThemeContext,
-  themes,
-} from '@src/core/themes';
+import { themes } from '@src/core/themes';
 import { Theme } from './type';
 import { toggleTheme } from '../../../actions';
 import { connect } from 'react-redux';
+import {
+  GlobalState,
+  ThemeEnum,
+} from '@src/core/model';
 
-export class ThemesContainerComponent extends React.Component {
+export class ThemesContainerComponent extends React.Component<GlobalState> {
 
   private data: Theme[] = [];
 
@@ -22,31 +22,23 @@ export class ThemesContainerComponent extends React.Component {
     return { name: theme, theme: themes[theme] };
   };
 
-  private renderContent = (context: ContextType): React.ReactElement<any> => {
+  public render(): React.ReactNode {
     return (
       <Themes
         data={this.data}
-        currentTheme={context.currentTheme}
+        currentTheme={this.props.theme}
         onToggleTheme={this.props.toggleTheme}
       />
-    );
-  };
-
-  public render(): React.ReactNode {
-    return (
-      <ThemeContext.Consumer>
-        {this.renderContent}
-      </ThemeContext.Consumer>
     );
   }
 }
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state: GlobalState) => ({
   theme: state.theme,
 });
 
-const mapDispatchToProps = dispatch => ({
-  toggleTheme: theme => dispatch(toggleTheme(theme)),
+const mapDispatchToProps = (dispatch: Function) => ({
+  toggleTheme: (theme: ThemeEnum) => dispatch(toggleTheme(theme)),
 });
 
 export const ThemesContainer = connect(mapStateToProps, mapDispatchToProps)(ThemesContainerComponent);

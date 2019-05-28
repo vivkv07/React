@@ -1,9 +1,11 @@
-import { ThemeKey } from '@src/core/themes';
+import { store } from '../../store';
+import { ThemeEnum } from '@src/core/model';
 
 export class ThemeService {
 
-  public static select = <T>(config: { [key in ThemeKey | 'default']?: T },
-                             currentTheme: ThemeKey): T | null => {
+  public static select = <T>(config: { [key in ThemeEnum | 'default']?: T }): T | null => {
+
+    const currentTheme: ThemeEnum = store.getState().theme;
 
     if (config[currentTheme]) {
       return config[currentTheme];

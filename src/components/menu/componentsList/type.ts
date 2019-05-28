@@ -5,5 +5,5 @@ import { ThemeKey } from '@src/core/themes';
 
 export interface ComponentsListItemData {
   title: string;
-  icon: (style: StyleType, theme: ThemeKey) => React.ReactElement<ImageProps>;
+  icon: (style: StyleType) => React.ReactElement<ImageProps>;
 }

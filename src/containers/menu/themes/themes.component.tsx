@@ -37,7 +37,7 @@ class ThemesComponent extends React.Component<ThemesProps> {
         <ThemeCard
           style={this.props.themedStyle.item}
           title={info.item.name}
-          disabled={false}
+          disabled={isDisabled}
           onPress={() => {
             this.onItemPress(info.index);
           }}
