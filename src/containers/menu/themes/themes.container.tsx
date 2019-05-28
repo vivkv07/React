@@ -6,8 +6,10 @@ import {
   themes,
 } from '@src/core/themes';
 import { Theme } from './type';
+import { toggleTheme } from '../../../actions';
+import { connect } from 'react-redux';
 
-export class ThemesContainer extends React.Component {
+export class ThemesContainerComponent extends React.Component {
 
   private data: Theme[] = [];
 
@@ -25,7 +27,7 @@ export class ThemesContainer extends React.Component {
       <Themes
         data={this.data}
         currentTheme={context.currentTheme}
-        onToggleTheme={context.toggleTheme}
+        onToggleTheme={this.props.toggleTheme}
       />
     );
   };
@@ -38,3 +40,13 @@ export class ThemesContainer extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => ({
+  theme: state.theme,
+});
+
+const mapDispatchToProps = dispatch => ({
+  toggleTheme: theme => dispatch(toggleTheme(theme)),
+});
+
+export const ThemesContainer = connect(mapStateToProps, mapDispatchToProps)(ThemesContainerComponent);

@@ -26,7 +26,9 @@
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
     "react-native-keyboard-aware-scroll-view": "^0.8.0",
     "react-native-ui-kitten": "github:akveo/react-native-ui-kitten#next",
-    "react-navigation": "^3.5.1"
+    "react-navigation": "^3.5.1",
+    "react-redux": "^6.0.1",
+    "redux": "^4.0.1"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
@@ -35,6 +37,8 @@
     "@types/react": "^16.8.17",
     "@types/react-native": "^0.57.57",
     "@types/react-navigation": "^3.0.7",
+    "@types/react-redux": "^7.0.9",
+    "@types/redux": "^3.6.0",
     "babel-core": "^7.0.0-bridge.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "husky": "^1.1.2",
