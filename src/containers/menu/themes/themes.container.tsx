@@ -9,7 +9,16 @@ import {
   ThemeEnum,
 } from '@src/core/model';
 
-export class ThemesContainerComponent extends React.Component<GlobalState> {
+const mapStateToProps = (state: GlobalState) => ({
+  theme: state.theme,
+});
+
+const mapDispatchToProps = (dispatch: Function) => ({
+  toggleTheme: (theme: ThemeEnum) => dispatch(toggleTheme(theme)),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+export class ThemesContainer extends React.Component<GlobalState> {
 
   private data: Theme[] = [];
 
@@ -32,13 +41,3 @@ export class ThemesContainerComponent extends React.Component<GlobalState> {
     );
   }
 }
-
-const mapStateToProps = (state: GlobalState) => ({
-  theme: state.theme,
-});
-
-const mapDispatchToProps = (dispatch: Function) => ({
-  toggleTheme: (theme: ThemeEnum) => dispatch(toggleTheme(theme)),
-});
-
-export const ThemesContainer = connect(mapStateToProps, mapDispatchToProps)(ThemesContainerComponent);

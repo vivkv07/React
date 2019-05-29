@@ -1,6 +1,6 @@
 import { ThemeEnum } from './theme.enum';
 
 export interface GlobalState {
-  theme: ThemeEnum;
+  theme?: ThemeEnum;
   toggleTheme?: (themeName: ThemeEnum) => void;
 }

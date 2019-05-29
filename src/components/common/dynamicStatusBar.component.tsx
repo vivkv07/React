@@ -11,10 +11,10 @@ import {
   ThemeType,
   withStyles,
 } from '@kitten/theme';
-import { ThemeKey } from '@src/core/themes';
+import { ThemeEnum } from '@src/core/model';
 
 interface ComponentProps {
-  currentTheme: ThemeKey;
+  currentTheme: ThemeEnum;
 }
 
 export type DynamicStatusBarProps = ThemedComponentProps & ViewProps & ComponentProps;

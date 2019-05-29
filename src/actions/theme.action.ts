@@ -1,6 +1,5 @@
 import { ThemeEnum } from '@src/core/model';
-
-export const TOGGLE_THEME = 'TOGGLE_THEME';
+import { TOGGLE_THEME } from './type';
 
 export const toggleTheme = (theme: ThemeEnum) => ({
   type: TOGGLE_THEME,

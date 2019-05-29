@@ -1,8 +1,7 @@
-import { combineReducers } from 'redux';
-import { TOGGLE_THEME } from './actions';
-import { ThemeEnum } from '@src/core/model';
+import { TOGGLE_THEME } from '../actions';
+import { ThemeEnum } from '../core/model';
 
-const theme = (state = ThemeEnum['Eva Light'], action): ThemeEnum => {
+export const theme = (state = ThemeEnum['Eva Light'], action): ThemeEnum => {
   if (action.type === TOGGLE_THEME) {
     if (action.payload === 'Eva Light') {
       return ThemeEnum['Eva Light'];
@@ -15,6 +14,3 @@ const theme = (state = ThemeEnum['Eva Light'], action): ThemeEnum => {
   }
 };
 
-export const reducers = combineReducers({
-  theme,
-});

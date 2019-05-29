@@ -46,7 +46,12 @@ const assets: Assets = {
   fonts: fonts,
 };
 
-class MainComponent extends React.Component<GlobalState> {
+const mapStateToProps = (state: GlobalState) => ({
+  theme: state.theme,
+});
+
+@connect(mapStateToProps, null)
+export class Main extends React.Component<GlobalState> {
 
   private onTransitionTrackError = (error: any): void => {
     console.warn('Analytics error: ', error.message);
@@ -77,12 +82,3 @@ class MainComponent extends React.Component<GlobalState> {
     );
   }
 }
-
-const mapStateToProps = (state: GlobalState) => ({
-  theme: state.theme,
-});
-
-export const Main = connect(mapStateToProps, null)(MainComponent);
-
-
-

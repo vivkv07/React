@@ -9,8 +9,6 @@ interface ThemeRegistry {
   ['Eva Dark']: ThemeType;
 }
 
-export type ThemeKey = keyof ThemeRegistry;
-
 export const themes: ThemeRegistry = {
   'Eva Light': light,
   'Eva Dark': dark,
