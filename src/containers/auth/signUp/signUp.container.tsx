@@ -11,7 +11,6 @@ export class SignUpContainer extends React.Component<NavigationScreenProps> {
   private onSignUpPress = (data: SignUpFormData) => {
     this.service.signUp(data)
       .then((result: any) => {
-        console.log(result);
       });
   };
 

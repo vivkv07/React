@@ -14,7 +14,7 @@ import { Router } from './core/navigation/routes';
 import { trackScreenTransition } from './core/utils/analytics';
 import { getCurrentStateName } from './core/navigation/routeUtil';
 import { themes } from '@src/core/themes';
-import { GlobalState } from '@src/core/model';
+import { GlobalState } from './store';
 
 const images: ImageRequireSource[] = [
   require('./assets/images/source/image-profile-1.jpg'),

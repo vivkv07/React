@@ -11,7 +11,6 @@ export class ForgotPasswordContainer extends React.Component<NavigationScreenPro
   private onResetPress = (data: ForgotPasswordFormData) => {
     this.service.resetPassword(data)
       .then((result: any) => {
-        console.log(result);
       });
   };
 

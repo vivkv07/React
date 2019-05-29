@@ -1,17 +1,36 @@
 import React from 'react';
 import { NavigationScreenProps } from 'react-navigation';
+import { connect } from 'react-redux';
 import { SignIn } from './signIn.component';
 import { SignInFormData } from '../type';
 import { AuthService } from '../../../service';
+import { signIn } from '../../../actions';
+import { GlobalState } from '../../../store';
 
-export class SignInContainer extends React.Component<NavigationScreenProps> {
+interface StateProps {
+  isAuthenticating: boolean;
+  auth: () => void;
+}
+
+type ComponentProps = StateProps & NavigationScreenProps;
+
+const mapStateToProps = (state: GlobalState) => ({
+  isAuthenticating: state.auth.isAuthenticating,
+});
+
+const mapDispatchToProps = (dispatch: Function) => ({
+  auth: () => dispatch(signIn()),
+});
+
+@connect(mapStateToProps, mapDispatchToProps)
+export class SignInContainer extends React.Component<ComponentProps> {
 
   private service: AuthService = new AuthService();
 
   private onSignInPress = (data: SignInFormData) => {
     this.service.signIn(data)
       .then((result: any) => {
-        console.log(result);
+        this.props.auth();
       });
   };
 

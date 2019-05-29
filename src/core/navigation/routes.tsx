@@ -495,7 +495,7 @@ const AppNavigator: ReactNavigationContainer = createStackNavigator({
     navigationOptions: EmptyHeaderNavigationOptions,
   },
 }, {
-  initialRouteName: 'Auth',
+  // initialRouteName: 'Auth',
 });
 
 export const Router: ReactNavigationContainer = createAppContainer(AppNavigator);

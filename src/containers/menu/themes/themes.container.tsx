@@ -4,10 +4,13 @@ import { themes } from '@src/core/themes';
 import { Theme } from './type';
 import { toggleTheme } from '../../../actions';
 import { connect } from 'react-redux';
-import {
-  GlobalState,
-  ThemeEnum,
-} from '@src/core/model';
+import { ThemeEnum } from '@src/core/model';
+import { GlobalState } from '../../../store';
+
+interface ComponentProps {
+  theme: ThemeEnum;
+  toggleTheme: (theme: ThemeEnum) => void;
+}
 
 const mapStateToProps = (state: GlobalState) => ({
   theme: state.theme,
@@ -18,7 +21,7 @@ const mapDispatchToProps = (dispatch: Function) => ({
 });
 
 @connect(mapStateToProps, mapDispatchToProps)
-export class ThemesContainer extends React.Component<GlobalState> {
+export class ThemesContainer extends React.Component<ComponentProps> {
 
   private data: Theme[] = [];
 

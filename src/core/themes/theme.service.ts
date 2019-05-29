@@ -1,4 +1,4 @@
-import { store } from '../../main.store';
+import { store } from '../../store';
 import { ThemeEnum } from '@src/core/model';
 
 export class ThemeService {

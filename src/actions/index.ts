@@ -1,2 +1,6 @@
 export { toggleTheme } from './theme.action';
-export { TOGGLE_THEME } from './type';
+export {
+  signIn,
+  signInSuccess,
+} from './auth.actions';
+export * from './type';

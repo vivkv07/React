@@ -1,7 +1,12 @@
-import { TOGGLE_THEME } from '../actions';
+import {
+  TOGGLE_THEME,
+  ToggleThemeActionValueType,
+} from '../actions';
 import { ThemeEnum } from '../core/model';
 
-export const theme = (state = ThemeEnum['Eva Light'], action): ThemeEnum => {
+export const theme = (state = ThemeEnum['Eva Light'],
+                      action: ToggleThemeActionValueType): ThemeEnum => {
+
   if (action.type === TOGGLE_THEME) {
     if (action.payload === 'Eva Light') {
       return ThemeEnum['Eva Light'];
