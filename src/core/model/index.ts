@@ -29,3 +29,4 @@ export {
 } from './movie.model';
 export { ThemeEnum } from './theme.enum';
 export { GlobalState } from './globalState.model';
+export { User } from './user.model';

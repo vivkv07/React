@@ -93,6 +93,11 @@ import {
   BottomNavigationContainer,
 } from '@src/containers/components';
 import {
+  SignInContainer,
+  SignUpContainer,
+  ForgotPasswordContainer as ForgotPassword,
+} from '@src/containers/auth';
+import {
   MenuNavigatorParams,
   TopNavigationElement,
   RootNavigatorParams,
@@ -117,6 +122,13 @@ const HeadingNavigationOptions = ({ navigation }) => {
   };
 
   return { ...navigation, header };
+};
+
+const EmptyHeaderNavigationOptions = ({ navigation }) => {
+  return {
+    ...navigation,
+    header: null,
+  };
 };
 
 const NavigationNavigator: ReactNavigationContainer = createStackNavigator(
@@ -465,11 +477,25 @@ const MenuNavigator: ReactNavigationContainer = createBottomTabNavigator({
   tabBarComponent: BottomNavigationBar,
 });
 
+const ApplicationAuthNavigator: ReactNavigationContainer = createStackNavigator({
+  ['Sign In']: SignInContainer,
+  ['Sign Up']: SignUpContainer,
+  ['Forgot Password']: ForgotPassword,
+}, {
+  headerMode: 'none',
+});
+
 const AppNavigator: ReactNavigationContainer = createStackNavigator({
   ['Home']: {
     screen: MenuNavigator,
     navigationOptions: HeadingNavigationOptions,
   },
+  ['Auth']: {
+    screen: ApplicationAuthNavigator,
+    navigationOptions: EmptyHeaderNavigationOptions,
+  },
+}, {
+  initialRouteName: 'Auth',
 });
 
 export const Router: ReactNavigationContainer = createAppContainer(AppNavigator);

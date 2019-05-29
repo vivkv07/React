@@ -11,10 +11,8 @@ import {
   withStyles,
 } from '@kitten/theme';
 import { Button } from '@kitten/ui';
-import {
-  SignUpForm2,
-  SignUpForm2Data,
-} from '@src/components/auth';
+import { SignUpForm2 } from '@src/components/auth';
+import { SignUpFormData } from '../type';
 import { ProfilePhoto } from '@src/components/social';
 import {
   ScrollableAvoidKeyboard,
@@ -23,24 +21,24 @@ import {
 import { PlusIcon } from '@src/assets/icons';
 
 interface ComponentProps {
-  onSignUpPress: (formData: SignUpForm2Data) => void;
+  onSignUpPress: (formData: SignUpFormData) => void;
   onSignInPress: () => void;
   onPhotoPress: () => void;
 }
 
-export type SignUp2Props = ThemedComponentProps & ComponentProps;
+export type SignUpProps = ThemedComponentProps & ComponentProps;
 
 interface State {
-  formData: SignUpForm2Data;
+  formData: SignUpFormData;
 }
 
-class SignUp2Component extends React.Component<SignUp2Props, State> {
+class SignUpComponent extends React.Component<SignUpProps, State> {
 
   public state: State = {
     formData: undefined,
   };
 
-  private onFormDataChange = (formData: SignUpForm2Data) => {
+  private onFormDataChange = (formData: SignUpFormData) => {
     this.setState({ formData });
   };
 
@@ -113,7 +111,7 @@ class SignUp2Component extends React.Component<SignUp2Props, State> {
   }
 }
 
-export const SignUp2 = withStyles(SignUp2Component, (theme: ThemeType) => ({
+export const SignUp = withStyles(SignUpComponent, (theme: ThemeType) => ({
   container: {
     flex: 1,
     backgroundColor: ['background-color-default-1'],
