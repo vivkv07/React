@@ -96,6 +96,7 @@ import {
   SignInContainer,
   SignUpContainer,
   ForgotPasswordContainer as ForgotPassword,
+  AuthLoadingContainer,
 } from '@src/containers/auth';
 import {
   MenuNavigatorParams,
@@ -494,8 +495,9 @@ const AppNavigator: ReactNavigationContainer = createStackNavigator({
     screen: ApplicationAuthNavigator,
     navigationOptions: EmptyHeaderNavigationOptions,
   },
+  ['Auth Loading']: AuthLoadingContainer,
 }, {
-  // initialRouteName: 'Auth',
+  initialRouteName: 'Auth Loading',
 });
 
 export const Router: ReactNavigationContainer = createAppContainer(AppNavigator);

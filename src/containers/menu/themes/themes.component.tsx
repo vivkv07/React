@@ -1,8 +1,12 @@
 import React from 'react';
-import { ListRenderItemInfo } from 'react-native';
+import {
+  ListRenderItemInfo,
+  View,
+} from 'react-native';
 import {
   List,
   ListItemProps,
+  Button,
 } from '@kitten/ui';
 import {
   ThemedComponentProps,
@@ -12,6 +16,7 @@ import {
 } from '@kitten/theme';
 import { ThemeCard } from './themeCard.component';
 import { Theme } from './type';
+import { AuthStorageService } from '@src/core/authStorage/authStorage.service';
 
 interface ComponentProps {
   data: Theme[];
@@ -50,12 +55,17 @@ class ThemesComponent extends React.Component<ThemesProps> {
     const { themedStyle, data } = this.props;
 
     return (
-      <List
-        style={themedStyle.container}
-        contentContainerStyle={themedStyle.contentContainer}
-        data={data}
-        renderItem={this.renderItem}
-      />
+      <View style={themedStyle.container}>
+        <List
+          style={themedStyle.container}
+          contentContainerStyle={themedStyle.contentContainer}
+          data={data}
+          renderItem={this.renderItem}
+        />
+        <Button onPress={() => AuthStorageService.setToken('')}>
+          RESET TOKEN
+        </Button>
+      </View>
     );
   }
 }
