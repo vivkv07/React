@@ -7,6 +7,8 @@ import {
   API_VERBS,
   ApiService,
 } from '../core/http/api.service';
+import { AuthStorageService } from '@src/core/authStorage/authStorage.service';
+import { User } from '@src/core/model';
 
 interface AuthApiEndpoints {
   signIn: string;
@@ -24,6 +26,7 @@ const endpoints: AuthApiEndpoints = {
 
 export interface AuthApiResponse {
   success: boolean;
+
   [key: string]: any;
 }
 
@@ -37,26 +40,24 @@ export class AuthApi {
       {},
       false,
     )
-      .then((response: { token: string }) => {
-        if (response && response.token) {
-          return this.getCurrentUser()
-            .then((user: any) => {
-              return {
-                success: true,
-                user: user,
-                token: response.token,
-              };
-            });
-        } else {
-          return { success: false };
-        }
-      });
+      .then(this.processToken);
   }
 
-  public signUp(formData: SignUpFormData): Promise<any> {
-    return new Promise((resolve: any) => {
-      setTimeout(() => resolve({ message: 'sign up' }), 5000);
-    });
+  public signUp(formData: SignUpFormData): Promise<AuthApiResponse> {
+    const payload = {
+      fullName: formData.username,
+      confirmPassword: formData.password,
+      email: formData.email,
+      password: formData.password,
+    };
+    return ApiService.fetchApi(
+      endpoints.signUp,
+      payload,
+      API_VERBS.POST,
+      {},
+      false,
+    )
+      .then(this.processToken);
   }
 
   public resetPassword(formData: ForgotPasswordFormData): Promise<any> {
@@ -65,7 +66,30 @@ export class AuthApi {
     });
   }
 
-  public getCurrentUser(): Promise<any> {
+  private processToken = (response: { token: string }): Promise<AuthApiResponse> => {
+    return this.setToken(response.token)
+      .then((token: string) => {
+        if (token) {
+          return this.getCurrentUser()
+            .then((user: any) => {
+              return {
+                success: true,
+                user: user,
+                token: token,
+              };
+            });
+        } else {
+          return { success: false };
+        }
+      });
+  };
+
+  private setToken(token: string): Promise<string> {
+    return AuthStorageService.setToken(token)
+      .then(() => token);
+  }
+
+  private getCurrentUser(): Promise<User> {
     return ApiService.fetchApi(
       endpoints.currentUser,
       {},

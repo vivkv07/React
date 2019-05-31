@@ -17,10 +17,13 @@ import { ProfilePhoto } from '@src/components/social';
 import {
   ScrollableAvoidKeyboard,
   textStyle,
+  Loading,
+  LoadingComponentProps,
 } from '@src/components/common';
 import { PlusIcon } from '@src/assets/icons';
 
 interface ComponentProps {
+  isAuthenticating: boolean;
   onSignUpPress: (formData: SignUpFormData) => void;
   onSignInPress: () => void;
   onPhotoPress: () => void;
@@ -54,6 +57,12 @@ class SignUpComponent extends React.Component<SignUpProps, State> {
     this.props.onSignUpPress(this.state.formData);
   };
 
+  private getPointerEvents = (): 'none' | 'auto' => {
+    const { isAuthenticating } = this.props;
+
+    return isAuthenticating ? 'none' : 'auto';
+  };
+
   private renderPhotoButtonIcon = (style: StyleType): React.ReactElement<ImageProps> => {
     const { themedStyle } = this.props;
 
@@ -73,19 +82,19 @@ class SignUpComponent extends React.Component<SignUpProps, State> {
     );
   };
 
-  public render(): React.ReactNode {
+  private renderLoading = (): React.ReactElement<LoadingComponentProps> | null => {
+    const { isAuthenticating } = this.props;
+
+    return isAuthenticating ? (
+      <Loading/>
+    ) : null;
+  };
+
+  private renderContent = (): React.ReactNode => {
     const { themedStyle } = this.props;
 
     return (
-      <ScrollableAvoidKeyboard style={themedStyle.container}>
-        <View style={themedStyle.headerContainer}>
-          <ProfilePhoto
-            style={themedStyle.photo}
-            resizeMode='center'
-            source={{ uri: 'https://akveo.github.io/eva-icons/fill/png/128/person.png' }}
-            button={this.renderPhotoButton}
-          />
-        </View>
+      <React.Fragment>
         <SignUpForm2
           style={themedStyle.formContainer}
           onDataChange={this.onFormDataChange}
@@ -106,6 +115,28 @@ class SignUpComponent extends React.Component<SignUpProps, State> {
           onPress={this.onSignInButtonPress}>
           Already have an account? Sign In
         </Button>
+      </React.Fragment>
+    );
+  };
+
+  public render(): React.ReactNode {
+    const { themedStyle } = this.props;
+    const containerPointerEvents: 'none' | 'auto' = this.getPointerEvents();
+
+    return (
+      <ScrollableAvoidKeyboard
+        pointerEvents={containerPointerEvents}
+        style={themedStyle.container}>
+        <View style={themedStyle.headerContainer}>
+          <ProfilePhoto
+            style={themedStyle.photo}
+            resizeMode='center'
+            source={{ uri: 'https://akveo.github.io/eva-icons/fill/png/128/person.png' }}
+            button={this.renderPhotoButton}
+          />
+        </View>
+        {this.renderLoading()}
+        {this.renderContent()}
       </ScrollableAvoidKeyboard>
     );
   }

@@ -62,3 +62,7 @@ export {
   DynamicStatusBar,
   DynamicStatusBarProps,
 } from './dynamicStatusBar.component';
+export {
+  Loading,
+  LoadingComponentProps,
+} from './loading.component';

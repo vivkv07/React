@@ -2,8 +2,6 @@ import React from 'react';
 import {
   View,
   ViewProps,
-  ActivityIndicator,
-  StyleSheet,
 } from 'react-native';
 import {
   ThemedComponentProps,
@@ -17,6 +15,8 @@ import {
 import { SignInForm2 } from '@src/components/auth';
 import { SignInFormData } from '../type';
 import {
+  Loading,
+  LoadingComponentProps,
   ScrollableAvoidKeyboard,
   textStyle,
 } from '@src/components/common';
@@ -56,16 +56,17 @@ class SignInComponent extends React.Component<SignInProps> {
     this.setState({ formData });
   };
 
-  private renderLoading = (): React.ReactElement<ViewProps> | null => {
-    const { isAuthenticating, themedStyle } = this.props;
+  private getPointerEvents = (): 'none' | 'auto' => {
+    const { isAuthenticating } = this.props;
+
+    return isAuthenticating ? 'none' : 'auto';
+  };
+
+  private renderLoading = (): React.ReactElement<LoadingComponentProps> | null => {
+    const { isAuthenticating } = this.props;
 
     return isAuthenticating ? (
-      <View style={themedStyle.loadingContainer}>
-        <ActivityIndicator
-          size='large'
-          color={themedStyle.loadingIndicator.color}
-        />
-      </View>
+      <Loading/>
     ) : null;
   };
 
@@ -101,9 +102,12 @@ class SignInComponent extends React.Component<SignInProps> {
 
   public render(): React.ReactNode {
     const { themedStyle } = this.props;
+    const containerPointerEvents: 'none' | 'auto' = this.getPointerEvents();
 
     return (
-      <ScrollableAvoidKeyboard style={themedStyle.container}>
+      <ScrollableAvoidKeyboard
+        pointerEvents={containerPointerEvents}
+        style={themedStyle.container}>
         {this.renderLoading()}
         <View style={themedStyle.headerContainer}>
           <Text
@@ -159,17 +163,6 @@ export const SignIn = withStyles(SignInComponent, (theme: ThemeType) => {
     signUpText: {
       color: theme['text-color-hint'],
       ...textStyle.subtitle,
-    },
-    loadingContainer: {
-      flex: 1,
-      ...StyleSheet.absoluteFillObject,
-      backgroundColor: theme['background-color-default-4'],
-      opacity: 0.7,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    loadingIndicator: {
-      color: theme['color-primary-500'],
     },
   });
 });
